@@ -83,4 +83,166 @@ def solution(name):
 
 
 #################################################################
+'''
+ 인터넷 참조 답안
+'''
+def solution3(name):
+    answer = 0
+    i = 0
+    
+    while True:
+        answer += min(ord(name[i]) + ord('A'), ord('Z') - ord(name[i]) + 1)
+        name.replace(name[i], 'A')
+        
+        if name.count('A') == len(name):
+            return answer
+        
+        else:
+            left, right = 1, 1
+            for l in range(1, len(name)):
+                if name[i - l] == 'A':
+                    left += 1
+                else:
+                    break
+            
+            for r in range(1, len(name)):
+                if name[i + r] == 'A':
+                    right += 1
+                else:
+                    break
+            
+            if left > right:
+                answer += right
+                i += right
+            else:
+                answer += left
+                i -= left
+    
+    return answer
 
+#print(solution3('JEROEN'))
+
+################################################################
+'''
+ 인터넷 참조 답안2
+'''
+def solution4(name):
+    name = list(name)
+    answer = 0
+    i = 0
+    
+    while True:
+        answer += min(ord(name[i]) + ord('A'), ord('Z') - ord(name[i]) + 1)
+        name[i] = 'A'
+        
+        if name.count('A') == len(name):
+            return answer
+        
+        else:
+            left, right = 1, 1
+            for l in range(1, len(name)):
+                if name[i - l] == 'A':
+                    left += 1
+                else:
+                    break
+            
+            for r in range(1, len(name)):
+                if name[i + r] == 'A':
+                    right += 1
+                else:
+                    break
+            
+            if left > right:
+                answer += right
+                i += right
+            else:
+                answer += left
+                i -= left
+    
+    return answer
+
+print(solution4('JEROEN'))
+
+#####################################################################
+'''
+ 인터넷 참조 답안3 : 정확성(90.9)
+'''
+
+def solution(name):
+    name = list(name)
+    answer = 0
+    i = 0
+    
+    while True:
+        answer += min(ord(name[i]) - ord('A'), ord('Z') - ord(name[i]) + 1)
+        name[i] = 'A'
+        
+        if name.count('A') == len(name):
+            return answer
+        
+        else:
+            left, right = 1, 1
+            for l in range(1, len(name)):
+                if name[i - l] == 'A':
+                    left += 1
+                else:
+                    break
+            
+            for r in range(1, len(name)):
+                if name[i + r] == 'A':
+                    right += 1
+                else:
+                    break
+            
+            if left > right:
+                answer += right
+                i += right
+            else:
+                answer += left
+                i -= left
+    
+    return answer
+
+############################################################################
+'''
+ 정답
+ - 왼쪽이동 수와 오른쪽 이동 수가 같으면 오른쪽으로 이동시킨다.
+'''
+
+def solution(name):
+    name = list(name)
+    answer = 0
+    i = 0
+    
+    while True:
+        answer += min(ord(name[i]) - ord('A'), ord('Z') - ord(name[i]) + 1)
+        name[i] = 'A'
+        
+        if name.count('A') == len(name):
+            return answer
+        
+        else:
+            left, right = 1, 1
+            for l in range(1, len(name)):
+                if name[i - l] == 'A':
+                    left += 1
+                else:
+                    break
+            
+            for r in range(1, len(name)):
+                if name[i + r] == 'A':
+                    right += 1
+                else:
+                    break
+            
+            if left > right:
+                answer += right
+                i += right
+            elif left == right:
+                answer += right
+                i += right
+            else:
+                answer += left
+                i -= left
+    
+    return answer
