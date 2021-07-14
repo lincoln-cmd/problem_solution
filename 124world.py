@@ -44,7 +44,7 @@ def solution2(n):
 
 ##################################################
 '''
- 정확성(5), 효율성(0)
+ 정확성(20), 효율성(0)
  - n이 3의 배수로 주어질 경우 나머지가 0이 나와서, 몫을 가지고 while문을 한번 더 돔
   -> 원래보다 1번 더 돌게 됨
  ex) n = 3, 몫:1, 나머지:0, 4대입 -> 몫 1을 가지고 한번 더 돔 -> 1 대입. 결과:14
@@ -61,17 +61,26 @@ def solution3(n):
         if a == 0:
             n -= 1
         
-    answer.sort(reverse = True)
+    answer = sorted(answer)
     return ''.join(answer)
 
-#print(solution3(10))
+#print(solution3(6))
 
 
 #####################################################
 
-def solution4(n):
-    answer = []
-    list1 = ['4', '1', '2']
+'''
+ 재귀 함수 이용.
+ 인터넷 답안 참조
+'''
 
-
-
+def solution5(n):
+    list1 = ['1','2','4']
+    if n <= 3:
+        return list1[n-1]
+    else:
+        a = (n-1) // 3
+        b = (n-1) % 3
+        return solution5(a) + list1[b]
+    
+print(solution5(3))
