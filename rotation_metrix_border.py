@@ -41,17 +41,40 @@ def solution2(rows, columns, queries):
     # queries에 주어진 좌표값으로 회전할 범위 설정
     # -> for문 안에 총 4개의 for문이 만들어 져야 함. -> 회전이 사각형 형태에서 일어남으로, 각 변마다 범위를 따로 설정 해 줘야 함.
     for x1, y1, x2, y2 in queries:
-        # 위
-        for i in range(y1 - 1, y2 - 1, -1): # range범위에서 역순으로 i에 대입 -> 정순으로 하면 for문을 돌면서 i가 커질 때, temp변수에 입력되는 인자가 다음 값이랑 같아짐.
-            temp = arr[x1 - 1][i]
-            arr[x1 - 1][i+1] = temp
-        # 오른쪽
-        # 아래
+        answer2 = []
+        a = arr[x1-1][y1-1]
+        
         # 왼쪽
+        for i in range(x1 - 1, x2 - 1):
+            temp = arr[i+1][y1 - 1]
+            arr[i][y1 - 1] = temp
+            answer2.append(temp)
+        # 아래
+        for i in range(y1 - 1, y2 - 1):
+            temp = arr[x2 - 1][i]
+            arr[x2 - 1][i-1] = temp
+            answer2.append(temp)
+        # 오른쪽
+        for i in range(x2 - 1, x1 - 1, -1):
+            temp = arr[i-1][y2 - 1]
+            arr[i][y2 - 1] = temp
+            answer2.append(temp)
+        # 위
+        for i in range(y2 - 1, y1 - 1, -1): # range범위에서 역순으로 i에 대입 -> 정순으로 하면 for문을 돌면서 i가 커질 때, temp변수에 입력되는 인자가 다음 값이랑 같아짐.
+            temp = arr[x1 - 1][i-1]
+            arr[x1 - 1][i] = temp
+            answer2.append(temp)
         
+        arr[x1-1][y1] = a
+        answer2.append(a)
+        
+        
+        answer.append(min(answer2))
     
         
     
-    return arr
+        
+    
+    return answer
 
 print(solution2(6, 6, [[2,2,5,4],[3,3,6,6],[5,1,6,3]]))
