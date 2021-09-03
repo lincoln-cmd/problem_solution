@@ -51,8 +51,8 @@ def solution2(rows, columns, queries):
             answer2.append(temp)
         # 아래
         for i in range(y1 - 1, y2 - 1):
-            temp = arr[x2 - 1][i]
-            arr[x2 - 1][i-1] = temp
+            temp = arr[x2 - 1][i+1]
+            arr[x2 - 1][i] = temp
             answer2.append(temp)
         # 오른쪽
         for i in range(x2 - 1, x1 - 1, -1):
@@ -78,3 +78,4 @@ def solution2(rows, columns, queries):
     return answer
 
 print(solution2(6, 6, [[2,2,5,4],[3,3,6,6],[5,1,6,3]]))
+print(solution2(3, 3, [[1,1,2,2],[1,2,2,3],[2,1,3,2],[2,2,3,3]]))
