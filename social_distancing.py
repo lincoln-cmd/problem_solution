@@ -76,12 +76,39 @@ print(solution([["POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"],
  너비 우선 탐색(BFS) 사용
 '''
 from collections import deque
-def 
+
+move = [(0, -1), (-1, 0), (0, 1), (1, 0)]
+
+def check(p, coord):
+    list1 = [[0 for i in range(len(p))] for _ in range(len(p))]
+    
+    q = deque([coord])
+    
+    
+    while q:
+        x, y = q.popleft()
+        list1[x][y] = 1
+        
+        
+        
+    print(list1)
+    return x, y
+    
+    
 
 def solution2(places):
     answer = []
     
+    for p in places:
+        ans = 1
+        
+        for i in range(len(p)):
+            for j in range(len(p[0])):
+                if p[i][j] == 'P':
+                    x, y = check(p, [i, j])
+                    
+    
     return answer
 
-
+print(solution2([["POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"], ["POOPX", "OXPXP", "PXXXO", "OXXXO", "OOOPP"], ["PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"], ["OOOXX", "XOOOX", "OOOXX", "OXOOX", "OOOOO"], ["PXPXP", "XPXPX", "PXPXP", "XPXPX", "PXPXP"]]))
 
