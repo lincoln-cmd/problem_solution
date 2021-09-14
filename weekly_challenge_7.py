@@ -58,9 +58,10 @@ def solution(enter, leave):
 ##################################################################
 '''
  2차 : 정확성(23.5)
- - x가 y보다 먼저 와서 늦게 떠남
- - x가 y보다 늦게 와서 먼저 떠남
- - x가 y보다 먼저 오고 먼저 떠났지 y보다 늦게 온 z가 x보다 먼저 떠남
+ - 만난게 확실 한 경우의 수로 접근
+  1) x가 y보다 먼저 와서 늦게 떠남
+  2) x가 y보다 늦게 와서 먼저 떠남
+  3) x가 y보다 먼저 오고 먼저 떠났지 y보다 늦게 온 z가 x보다 먼저 떠남
 '''
 
 def solution2(enter, leave):
@@ -69,18 +70,26 @@ def solution2(enter, leave):
     for i in range(1, len(enter) + 1):
         dic[i] = 0
     
+    # 1)
     for i in range(1, len(enter) + 1):
         for j in range(1, len(enter) + 1):
             if enter.index(i) < enter.index(j) and leave.index(i) > leave.index(j):
                 dic[i] += 1
                 #dic[j] += 1
+            elif enter.index(i) > enter.index(j) and leave.index(i) < leave.index(j):
+                dic[i] += 1
                 
+    # 2)
+    '''
     for i in range(1, len(enter) + 1):
         for j in range(1, len(enter) + 1):
             if enter.index(i) > enter.index(j) and leave.index(i) < leave.index(j):
                 dic[i] += 1
                 #dic[j] += 1
-                
+    '''
+    
+    
+    # 3)
     for i in range(1, len(enter) + 1):
         for j in range(1, len(enter) + 1):
             for k in range(1, len(enter) + 1):
@@ -88,8 +97,58 @@ def solution2(enter, leave):
                     if enter.index(k) > enter.index(j) and leave.index(k) < leave.index(i):
                         dic[i] += 1
                         dic[j] += 1
+    
                         
     return list(dic.values())
-
+'''
 print(solution2([1,4,2,3], [2,1,3,4]))
+print(solution2([1,2,3], [3,2,1]))
+print(solution2([1, 2, 3], [1, 2, 3]))
+print(solution2([1, 2, 3], [3, 2, 1]))
+print(solution2([1, 2, 3, 4], [3, 4, 2, 1]))
+print(solution2([1, 2, 3, 4], [4, 2, 1, 3]))
+print(solution2([1, 2, 3, 4, 5], [5, 3, 1, 2, 4])) #
+print(solution2([1, 4, 5, 3, 2], [5, 4, 3, 2, 1]))
+print(solution2([1, 3, 2, 4, 6, 5, 8, 7, 9, 10], [9, 5, 1, 10, 7, 4, 8, 6, 2, 3])) #
+print(solution2([1, 10, 9, 2, 3, 8, 7, 4, 5, 6], [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]))
+'''
+#############################################################################
+'''
+ 3차
+ - 포인터를 이용한 풀이
+ 참조 : https://latte-is-horse.tistory.com/232
+'''
+def solution3(enter, leave):
+    answer = [[] for _ in range(len(enter) + 1)]
+    r = []
+    
+    e, l = 0, 0
+    
+    while e < len(enter) or l < len(enter):
+        if leave[l] in r:
+            r.remove(leave[l])
+            l += 1
+        else:
+            answer[enter[e]] = r[:]
+            r.append(enter[e])
+            e += 1
+            
+    for i, j in enumerate(answer):
+        for k in j:
+            answer[k].append(i)
+            
+            
+    return [len(set(i)) for i in answer][1:]
 
+
+
+print(solution3([1,4,2,3], [2,1,3,4]))
+print(solution3([1,2,3], [3,2,1]))
+print(solution3([1, 2, 3], [1, 2, 3]))
+print(solution3([1, 2, 3], [3, 2, 1]))
+print(solution3([1, 2, 3, 4], [3, 4, 2, 1]))
+print(solution3([1, 2, 3, 4], [4, 2, 1, 3]))
+print(solution3([1, 2, 3, 4, 5], [5, 3, 1, 2, 4])) #
+print(solution3([1, 4, 5, 3, 2], [5, 4, 3, 2, 1]))
+print(solution3([1, 3, 2, 4, 6, 5, 8, 7, 9, 10], [9, 5, 1, 10, 7, 4, 8, 6, 2, 3])) #
+print(solution3([1, 10, 9, 2, 3, 8, 7, 4, 5, 6], [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]))
