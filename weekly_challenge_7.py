@@ -142,6 +142,7 @@ def solution3(enter, leave):
 
 
 
+'''
 print(solution3([1,4,2,3], [2,1,3,4]))
 print(solution3([1,2,3], [3,2,1]))
 print(solution3([1, 2, 3], [1, 2, 3]))
@@ -152,3 +153,44 @@ print(solution3([1, 2, 3, 4, 5], [5, 3, 1, 2, 4])) #
 print(solution3([1, 4, 5, 3, 2], [5, 4, 3, 2, 1]))
 print(solution3([1, 3, 2, 4, 6, 5, 8, 7, 9, 10], [9, 5, 1, 10, 7, 4, 8, 6, 2, 3])) #
 print(solution3([1, 10, 9, 2, 3, 8, 7, 4, 5, 6], [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]))
+'''
+############################################################################
+'''
+ 4차
+ - 기준을 leave리스트에 두고 순회하며 각 인덱스가 회의실에 있는지 확인.
+  없다면, 그 인덱스가 회의실에 들어올 때 까지 enter순서대로 회의실에 입실.
+  회의실에 해당 인덱스가 존재 한다면, 입실해 있는 번호의 사람들에 +1, 해당 인덱스에 +회의실에 입장한 
+  사람들의 수
+'''
+
+def solution4(enter, leave):
+    answer = dict()
+    
+    for i in range(1, len(enter) + 1):
+        answer[i] = 0
+        
+    el = 0
+    room = []
+        
+    for i in leave:
+        while i not in room:
+            room.append(enter[el])
+            el += 1
+        room.remove(i)
+        for j in room:
+            answer[j] += 1
+        answer[i] += len(room)
+    #print(answer)
+        
+    return list(answer.values())
+
+print(solution4([1,4,2,3], [2,1,3,4]))
+print(solution4([1,2,3], [3,2,1]))
+print(solution4([1, 2, 3], [1, 2, 3]))
+print(solution4([1, 2, 3], [3, 2, 1]))
+print(solution4([1, 2, 3, 4], [3, 4, 2, 1]))
+print(solution4([1, 2, 3, 4], [4, 2, 1, 3]))
+print(solution4([1, 2, 3, 4, 5], [5, 3, 1, 2, 4])) #
+print(solution4([1, 4, 5, 3, 2], [5, 4, 3, 2, 1]))
+print(solution4([1, 3, 2, 4, 6, 5, 8, 7, 9, 10], [9, 5, 1, 10, 7, 4, 8, 6, 2, 3])) #
+print(solution4([1, 10, 9, 2, 3, 8, 7, 4, 5, 6], [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]))
