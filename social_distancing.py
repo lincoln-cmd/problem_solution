@@ -79,8 +79,8 @@ from collections import deque
 
 move = [(0, -1), (-1, 0), (0, 1), (1, 0)]
 
-def check(p, coord):
-    list1 = [[0 for i in range(len(p))] for _ in range(len(p))]
+def check(place, coord):
+    list1 = [[0 for i in range(len(place))] for _ in range(len(place))]
     
     q = deque([coord])
     
@@ -88,25 +88,43 @@ def check(p, coord):
     while q:
         x, y = q.popleft()
         list1[x][y] = 1
+        for i in range(4):
+            dx = x + move[i][0]
+            dy = y + move[i][1]
+            
+            if dx < 0 or dy < 0 or dx >= 5 or dy >= 5 or list1[dx][dy]:
+                continue
+            if place[dx][dy] == 'P':
+                return False
+            elif place[dx][dy] == 'X':
+                continue
+            else:
+                q.append((dx, dy))
+                
         
         
         
-    print(list1)
-    return x, y
+    #print(list1)
+    return True
     
     
 
 def solution2(places):
     answer = []
     
-    for p in places:
+    for place in places:
         ans = 1
         
-        for i in range(len(p)):
-            for j in range(len(p[0])):
-                if p[i][j] == 'P':
-                    x, y = check(p, [i, j])
-                    
+        for i in range(len(place)):
+            for j in range(len(place[0])):
+                if place[i][j] == 'P':
+                    if not check(place, [i, j]):
+                        ans = 0
+                        break
+        if ans:
+            answer.append(1)
+        else:
+            answer.append(0)
     
     return answer
 
