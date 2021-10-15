@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+'''
 def solution(line):
     answer = []
     
     for i in range(len(line)-1):
         for j in range(i+1, len(line)):
             if (line[i][0] * line[j][1] - line[i][1] * line[j][0]) != 0:
+                # 교점 공식
                 x = (line[i][1] * line[j][2] - line[i][2] * line[j][1]) / (line[i][0] * line[j][1] - line[i][1] * line[j][0])
                 y = (line[i][2] * line[j][0] - line[i][0] * line[j][2]) / (line[i][0] * line[j][1] - line[i][1] * line[j][0])
                 if x % 1 == 0 and y % 1 == 0:
@@ -22,16 +24,87 @@ def solution(line):
         if answer[i][1] < d: # -y 최대 길이
             d = answer[i][1]
             
+            
     print(answer)
-    dot = [[] for j in range(a + -1 * c)]
+    dot = ['' for j in range(a + -1 * c + 1)] # x좌표의 최대값과 최솟값의 길이에 0까지 더해줌.
+    len_y = (b + -1 * d + 1) # 위와 같은 방법으로 y좌표의 길이를 구해줌.
     
-
     for i in range(len(answer)):
-        x = answer[i][0]
-        y = answer[i][1]
-#        dot[i] = '.' 
+    answer[i][0] += (-1 * c)
+    answer[i][1] += (-1 * d)
+        
+    for i in range(len(answer)):
+        dot[answer[i]] = ('.' * len_y)
+    #for i in range(len_y):
+        
         
     
-    return dot
+    #return dot
+'''
+#########################################################################################
+'''
+def solution2(line):
+    INF = float('inf')
+    mark, l = [], len(line)
+    minx, maxx, miny, maxy = INF, -INF, INF, -INF
+    for i in range(l):
+        for j in range(i, l):
+            if i == j: continue
+            a, b, c, d, e, f = *line[i], *line[j]
+            mo = a*d - b*c
+            if mo == 0: continue
+            x, y = (b*f - e*d) / mo, (e*c - a*f) / mo
+            #if (not x.is_integer()) or (not y.is_integer()): continue
+            if x-int(x) or y-int(y): continue    
+            #if (b*f - e*d) % mo or (e*c - a*f) % mo: continue
+            x, y = int(x), int(y)
+            minx, maxx, miny, maxy = min(minx, x), max(maxx, x), min(miny, y), max(maxy, y)
+            mark.append((x, y))
+    res = [['.' for _ in range(maxx-minx + 1)] for _ in range(maxy - miny + 1)]
+    for x, y in mark: res[maxy - y][x - minx] = '*'
+    return [''.join(s) for s in res]
 
-print(solution([[2, -1, 4], [-2, -1, 4], [0, -1, 1], [5, -8, -12], [5, 8, 12]]))
+
+
+#(https://velog.io/@edhz8888/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%9C%84%ED%81%B4%EB%A6%AC-%EC%B1%8C%EB%A6%B0%EC%A7%80-10%EC%A3%BC%EC%B0%A8-%EA%B5%90%EC%A0%90%EC%97%90-%EB%B3%84-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+def solution3(line):
+    INF = float('inf')
+    mark,L = [],len(line)
+    minx,maxx,miny,maxy=INF,-INF,INF,-INF
+    for i in range(L):
+        for j in range(i,L):
+            if i==j : continue
+            A,B,E,C,D,F = *line[i],*line[j]
+            mo = A*D-B*C
+            if mo==0: continue
+            x,y=(B*F-E*D)/mo,(E*C-A*F)/mo
+            if x-int(x) or y-int(y) : continue
+            x,y=int(x),int(y)
+            minx,maxx,miny,maxy = min(minx,x),max(maxx,x),min(miny,y),max(maxy,y)
+            mark.append((x,y))
+    res=[['.' for _ in range(maxx-minx+1)] for _ in range(maxy-miny+1)]
+    for x,y in mark : res[maxy-y][x-minx] = '*'
+    return [''.join(s) for s in res]
+'''
+
+###############################################################################################
+def solution4(line):
+    INF = float('inf')
+    mark, l = [], len(line)
+    minx, maxx, miny, maxy = INF, -INF, INF, -INF
+    for i in range(l):
+        for j in range(i, l):
+            if i == j: continue
+            a, b, c, d, e, f = *line[i], *line[j]
+            mo = a*d - b*c
+            if mo == 0: continue
+            x, y = (b*f - e*d) / mo, (e*c - a*f) / mo
+            if x - int(x) or y - int(y): continue
+            x, y = int(x), int(y)
+            minx, maxx, miny, maxy = min(minx, x), max(maxx, x), min(miny, y), max(maxy, y)
+            mark.append((x, y))
+    res = [['.' for _ in range(maxx - minx + 1)] for _ in range(maxy - miny + 1)]
+    for x, y in mark: res[maxy - y][x - minx] = '*'
+    return [''.join(s) for s in res]
+
+print(solution2([[2, -1, 4], [-2, -1, 4], [0, -1, 1], [5, -8, -12], [5, 8, 12]]))
