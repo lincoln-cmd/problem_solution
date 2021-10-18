@@ -88,6 +88,7 @@ def solution3(line):
 '''
 
 ###############################################################################################
+'''
 def solution4(line):
     INF = float('inf')
     mark, l = [], len(line)
@@ -107,4 +108,49 @@ def solution4(line):
     for x, y in mark: res[maxy - y][x - minx] = '*'
     return [''.join(s) for s in res]
 
-print(solution2([[2, -1, 4], [-2, -1, 4], [0, -1, 1], [5, -8, -12], [5, 8, 12]]))
+'''
+
+#################################################################################################
+
+def check(line1, line2):
+    a, b, e = line1
+    c, d, f = line2
+    mo = a*d - b*c
+    
+    if mo != 0 and (b*f - e*d) % mo == 0 and (e*c - a*f) % mo == 0:
+        return [(b*f - e*d) // mo, -(e*c - a*f) // mo]
+    return False
+
+
+def solution5(line):
+    answer = []
+    result = []
+    
+    for i in range(len(line) - 1):
+        for j in range(i+1, len(line)):
+            a = check(line[i], line[j])
+            
+            if a:
+                minx = min(minx, a[0]) if len(result) != 0 else a[0]
+                maxx = max(maxx, a[0]) if len(result) != 0 else a[0]
+                miny = min(miny, a[1]) if len(result) != 0 else a[1]
+                maxy = max(maxy, a[1]) if len(result) != 0 else a[1]
+                result.append(a)
+                
+    answer = [['.'] * (maxx - minx + 1) for _ in range(maxy - miny + 1)]
+    
+    for x, y in result:
+        answer[y - miny][x - minx] = '*'
+        
+    for i in range(len(answer)):
+        answer[i] = ''.join(answer[i])
+        
+    return answer
+
+
+
+
+print(solution5([[2, -1, 4], [-2, -1, 4], [0, -1, 1], [5, -8, -12], [5, 8, 12]]))
+
+
+
