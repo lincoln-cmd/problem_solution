@@ -17,4 +17,4 @@ for i in range(100, 1000):
         if ''.join(list(str(a))) == ''.join(reversed(list(str(a)))) and a > answer:
             answer = a
 print(answer)
-[/code/
+[/code]
