@@ -1,0 +1,42 @@
+[problem]
+소수를 크기 순으로 나열하면 2, 3, 5, 7, 11, 13, ... 과 같이 됩니다.
+
+이 때 10,001번째의 소수를 구하세요.
+[/problem]
+
+
+
+
+[explanation]
+- 주어진 수가 소수인지 판별하는 함수 -> 1
+- n번째 소수를 찾기 위한 함수 -> 2
+
+1. 주어진 자릿수 n = 10001을 2번 함수에 넣는다.
+2. 2번 함수의 cnt(count)와 num(number)을 초기 값으로 0과 1로 주고, while 반복문을 통해 현재 cnt가 n보다 작을 동안 현재 판별 중인 수 num을 1번 함수에 넣어서 소수인지 확인한다.
+3. 1번 함수를 통해, num이 소수이면 cnt를 1 올려주고, 소수가 아니면 올려주지 않는다.
+4. cnt가 n과 같아지면 num을 반환한 후, 함수를 종료한다.
+[/explanation]
+
+
+
+
+[code]
+def check(n):
+    if n < 2:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+def Prime(n):
+    cnt = 0
+    num = 1
+    while cnt < n:
+        num += 1
+        if check(num) == True:
+            cnt += 1
+    return num
+
+print(Prime(10001))
+[/code]
