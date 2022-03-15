@@ -1,0 +1,60 @@
+[problem]
+A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+
+Find the largest palindrome made from the product of two 3-digit numbers.
+[/problem]
+
+
+
+[explanation&code]
+
+1. calculate all number from 1000 to 100 reversely
+
+largest = 0
+x, y = 0, 0
+
+for a in range(1000, 100, -1):
+    for b in range(1000, 100, -1):
+        i = str(a * b)
+        if i == ''.join(reversed(i)) and int(i) > largest:
+            largest = int(i)
+            x = a
+            y = b
+            
+            
+print(largest)
+print(x, y)
+
+
+
+2. calculate all number from 100 to 1000, and find largest result
+
+largest = 0
+x, y = 0, 0
+
+for a in range(100, 1000):
+    for b in range(100, 1000):
+        i = str(a * b)
+        if i == ''.join(reversed(i)) and int(i) > largest:
+            largest = int(i)
+            x, y = a, b
+            
+print(f'{x} * {y} = {largest}')
+
+
+
+3. fro 1000 to 100, reversely, multiply two numbers. Once find the palindrome number, break the loop.
+
+largest = 0
+x, y = 0, 0
+
+for a in range(1000, 100, -1):
+    for b in range(1000, 100, -1):
+        i = str(a * b)
+        if i == ''.join(reversed(i)) and int(i) > largest:
+            largest = int(i)
+            x, y = a, b
+            break
+            
+print('{} * {} = {}'.format(x, y, largest))
+[/explanation&code]
