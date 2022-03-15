@@ -62,6 +62,7 @@ print('{} * {} = {}'.format(x, y, largest))
 
 4. the palindrome number is divided by 11. In other words, the 11 is divisor(factor) of palindrome number, which means that
 if the palindrome number, consist of two 3-digit numbers, one of the numbers should be divided with 11.
+(reference from 'https://projecteuler.net/overview=004')
 
 largest = 0
 a = 999
