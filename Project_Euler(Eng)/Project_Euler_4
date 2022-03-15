@@ -43,7 +43,7 @@ print(f'{x} * {y} = {largest}')
 
 
 
-3. fro 1000 to 100, reversely, multiply two numbers. Once find the palindrome number, break the loop.
+3. from 1000 to 100, reversely, multiply two numbers. Once find the palindrome number, break the loop.
 
 largest = 0
 x, y = 0, 0
@@ -57,4 +57,33 @@ for a in range(1000, 100, -1):
             break
             
 print('{} * {} = {}'.format(x, y, largest))
+
+
+
+4. the palindrome number is divided by 11. In other words, the 11 is divisor(factor) of palindrome number, which means that
+if the palindrome number, consist of two 3-digit numbers, one of the numbers should be divided with 11.
+
+largest = 0
+a = 999
+
+while a >= 100:
+    b = 999
+    if a % 11 == 0:
+        b = 999
+        minus = 1
+    else: b, minus = 990, 11
+    while b >= a:
+        if a * b <= largest:
+            break
+        
+        if str(a * b) == str(a * b)[::-1]:
+            largest = a * b
+            
+        b -= minus
+    
+    a -= 1
+    
+print(f'{a} * {b} = {largest}')
+
+
 [/explanation&code]
