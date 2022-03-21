@@ -1,0 +1,33 @@
+[problem]
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+[/problem]
+
+
+
+[explanation]
+Utilize the formula 'least common multiple'.
+Import 'gcd(greatest common factor)' from math, which can help to find the gcd between two numbers, and 
+repeat the employ of gcd function. To be more specific, find the gcd of two numbers 
+in the array until the length of that to be 1.
+[/explanation]
+
+
+
+[code]
+from math import gcd
+
+def solution(arr):
+    def lcm(x, y):
+        return x * y // gcd(x, y)
+    
+    while True:
+        arr.append(lcm(arr.pop(), arr.pop()))
+        if len(arr) == 1:
+            return arr[0]
+        
+li = [i for i in range(1, 21)]
+
+print(solution(li))
+[/code]
