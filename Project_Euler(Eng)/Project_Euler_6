@@ -18,6 +18,11 @@ Find the difference between the sum of the squares of the first one hundred natu
 [explanation]
 The first sum method is the list which contains merely the numbers from 1 to 100, and second sum method is also list,
 but this contains the square numbers from 1 to 100. Therefore, it is possible to find the consequence, if the first sum method to be squared.
+
+If utilize the Sigma formula,
+(1 + 2 + ... + n) = sum(from k = 1, to n) k = n(n + 1) / 2
+(1 + 2 + ... + n)^2 = (sum(from k = 1, to n) k)^2 = (n(n + 1) / 2)^2
+(1^2 + 2^2 + ... + n^2) = sum(from k = 1, to = n) k^2 = n(n + 1)(2n + 1) / 6
 [/explanation]
 
 
