@@ -1,5 +1,15 @@
+[problem]
+The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+
+Find the sum of all the primes below two million.
+[/problem]
+
+
+
+
 - Utilize 'Sieve of Eratosthenes'
 
+[code1]
 n = 2000000
 li = [True] * (n + 1)
 
@@ -9,10 +19,15 @@ for i in range(2, int((n + 1) ** 0.5) + 1):
       li[j] = False
 
 print(sum(i for i in range(2, n + 1) if li[i]))
+[/code1]
+
+
 
 
 - Just employ Python function 'isprime()'
 
+[code2]
 import sympy
 n = 2000000
 print(sum(i for i in range(n + 1) if sympy.isprime(i)))
+[/code2]
